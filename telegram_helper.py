@@ -16,16 +16,15 @@ from typing import Optional, Dict, Any, List
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] [TelegramHelper] %(message)s")
 
-DEFAULT_CC_TOKEN = "8798886722:AAFLRQwdonCZIJXuvGm9NbvyyVlETxsWjYw"
 NWL_FORBIDDEN_PREFIX = "8944836049"
 
 CF_RELAY_URL = os.environ.get("CF_RELAY_URL", "https://telegram-command-edge.hari-edge.workers.dev").strip()
 CF_RELAY_SECRET = os.environ.get("CF_RELAY_SECRET", "HaRiSecret_2026_SecureRelay").strip()
 
-RAW_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip() or DEFAULT_CC_TOKEN
+RAW_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
 if RAW_BOT_TOKEN.startswith(NWL_FORBIDDEN_PREFIX):
-    logger.warning("🚨 [ANTI CROSS-CONTAMINATION] Blocked NWL token in TelegramHelper! Enforcing @youtube2drive_Bot.")
-    BOT_TOKEN = DEFAULT_CC_TOKEN
+    logger.error("🚨 [ANTI CROSS-CONTAMINATION] Blocked NWL token in TelegramHelper! Aborting.")
+    BOT_TOKEN = ""
 else:
     BOT_TOKEN = RAW_BOT_TOKEN
 
